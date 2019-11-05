@@ -35,13 +35,14 @@ class MessageController {
         .where('assistido_cpf', cpf)
         .fetch()
 
-        messages.map((data) => {
-          data.delivered_defensor = true
-        });
+      await Message
+        .query()
+        .where('delivered_defensor', false)
+        .where('defensor_id', defensorID)
+        .where('assistido_cpf', cpf)
+        .update({ delivered_defensor: true })
 
-        const messagesUpdated = await messages.save()
-
-        return messagesUpdated
+      return messages
     }
 
     if (sended_by === '1') {
