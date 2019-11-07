@@ -16,47 +16,63 @@ class MessageController {
     const messages = await Message
       .query()
       .where('defensor_id', params.defensorID)
+      .where('defensoria_id', params.defensoriaID)
       .where('assistido_cpf', params.cpf)
       .orderBy('sended_date', 'desc')
       .fetch()
 
+    if (!messages.rows.length > 0){
+      return response.status(404).json({ error: 'No messages found.' })
+    }
     return messages
   }
 
   async show({ params, response }){
 
-    const { defensorID, cpf, sended_by } = params
+    const { defensorID, defensoriaID, cpf, sended_by } = params
 
     if(sended_by === '0'){
       const messages = await Message
         .query()
         .where('delivered_defensor', false)
         .where('defensor_id', defensorID)
+        .where('defensoria_id', defensoriaID)
         .where('assistido_cpf', cpf)
         .fetch()
+
+      if(!messages.rows.length > 0){
+        return response.status(404).json({ error: 'No messages found.' })
+      }
 
       await Message
         .query()
         .where('delivered_defensor', false)
         .where('defensor_id', defensorID)
+        .where('defensoria_id', defensoriaID)
         .where('assistido_cpf', cpf)
         .update({ delivered_defensor: true })
 
-      return messages
-    }
+        return messages
+      }
 
-    if (sended_by === '1') {
-      const messages = await Message
+      if (sended_by === '1') {
+        const messages = await Message
         .query()
         .where('delivered_assistido', false)
         .where('defensor_id', defensorID)
+        .where('defensoria_id', defensoriaID)
         .where('assistido_cpf', cpf)
         .fetch()
 
-      await Message
+        if (!messages.rows.length > 0) {
+          return response.status(404).json({ error: 'No messages found.' })
+        }
+
+        await Message
         .query()
         .where('delivered_assistido', false)
         .where('defensor_id', defensorID)
+        .where('defensoria_id', defensoriaID)
         .where('assistido_cpf', cpf)
         .update({delivered_assistido: true})
 
@@ -92,8 +108,8 @@ class MessageController {
       data.delivered_assistido = true
     }
 
-    const message = await Message.create(
-      { ...data, defensor_id: params.defensorID, assistido_cpf: params.cpf }
+    await Message.create(
+      { ...data, defensor_id: params.defensorID, defensoria_id: params.defensoriaID, assistido_cpf: params.cpf }
     )
 
     return response.status(201).json({ success: 'Message received.'})

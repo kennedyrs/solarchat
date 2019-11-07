@@ -21,8 +21,8 @@ Route.get('/', () => {
 })
 
 Route.group(() => {
-  Route.get('messages/:defensorID/:cpf/all', 'MessageController.all')
-  Route.get('messages/:defensorID/:cpf/:sended_by', 'MessageController.show')
-  Route.post('messages/:defensorID/:cpf', 'MessageController.store')
+  Route.get('messages/:defensorID/:defensoriaID/:cpf/all', 'MessageController.all')
+  Route.get('messages/:defensorID/:defensoriaID/:cpf/:sended_by', 'MessageController.show')
+  Route.post('messages/:defensorID/:defensoriaID/:cpf', 'MessageController.store')
 
 }).prefix('api/v1')

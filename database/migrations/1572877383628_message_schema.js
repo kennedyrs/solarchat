@@ -8,6 +8,7 @@ class MessageSchema extends Schema {
     this.create('messages', (table) => {
       table.increments()
       table.integer('defensor_id').unsigned().notNullable()
+      table.integer('defensoria_id').unsigned().notNullable()
       table.string('assistido_cpf', 11).notNullable().index()
       table.text('message').notNullable()
       table.integer('sended_by').unsigned().notNullable().comment('0 = gabinete  e 1 = assistido')
