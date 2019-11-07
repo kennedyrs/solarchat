@@ -17,7 +17,7 @@
 const Route = use('Route')
 
 Route.get('/', () => {
-  return { greeting: 'Try Hack me!' }
+  return { EasterEgg: 'The RAM memory thanks you for not being using Java!' }
 })
 
 Route.group(() => {
