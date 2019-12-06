@@ -166,8 +166,7 @@ class MessageController {
         WHERE defensor_id = tb1.defensor_id
           AND defensoria_id = tb1.defensoria_id
           AND assistido_cpf = tb1.assistido_cpf
-          AND sended_by = 0
-          AND delivered_defensor = FALSE) as max_data
+          AND sended_by = 0) as max_data
     FROM
       (SELECT DISTINCT
         defensor_id,
