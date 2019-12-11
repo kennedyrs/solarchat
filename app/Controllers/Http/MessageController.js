@@ -130,7 +130,7 @@ class MessageController {
           m0.defensor_id,
           m0.defensoria_id,
           m0.assistido_cpf,
-          (select COUNT(1) from messages m1 where m1.defensor_id = m0.defensor_id and m1.defensoria_id = m0.defensoria_id AND m1.delivered_defensor = false)  as total
+          (select COUNT(1) from messages m1 where m1.defensor_id = m0.defensor_id and m1.defensoria_id = m0.defensoria_id AND m1.assistido_cpf = m0.assistido_cpf AND m1.delivered_defensor = false)  as total
         FROM
           messages m0
         WHERE
@@ -145,7 +145,7 @@ class MessageController {
         .raw(`SELECT DISTINCT
             m0.defensor_id,
             m0.defensoria_id,
-            (select COUNT(1) from messages m1 where m1.defensor_id = m0.defensor_id and m1.defensoria_id = m0.defensoria_id AND m1.delivered_assistido = false)  as total
+            (select COUNT(1) from messages m1 where m1.defensor_id = m0.defensor_id and m1.defensoria_id = m0.defensoria_id AND m1.assistido_cpf = m0.assistido_cpf AND m1.delivered_assistido = false)  as total
           FROM
             messages m0
           WHERE
