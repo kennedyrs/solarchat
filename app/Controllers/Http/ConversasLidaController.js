@@ -4,7 +4,7 @@ class ConversasLidaController {
   async quemTaOn(){
 
   }
-  async bloquearSpam(){
+  async blockSpam(){
 
   }
 }
